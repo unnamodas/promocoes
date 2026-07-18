@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNNA - Catálogo de Promoções</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+    
+    :root {
+        --bg-color: #ffffff;
+        --card-bg: #ffffff;
+        --primary-color: #000000;
+        --accent-color: #767676;
+        --border-color: #e5e5e5;
+        --text-main: #000000;
+        --text-muted: #666666;
+        --sold-color: #cccccc;
+        --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.02);
+        --transition: all 0.4s ease;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-main); -webkit-font-smoothing: antialiased; }
+
+    .marquee-bar { 
+        background-color: var(--primary-color); 
+        color: #ffffff; 
+        padding: 10px 0; 
+        font-size: 11px; 
+        letter-spacing: 0.15em; 
+        font-weight: 400; 
+        text-transform: uppercase; 
+        border-bottom: 1px solid var(--primary-color);
+        overflow: hidden; 
+        white-space: nowrap; 
+        position: relative;
+    }
+    .marquee-content { 
+        display: inline-block; 
+        animation: marquee 25s linear infinite; 
+    }
+    .marquee-content span { margin: 0 20px; }
+    @keyframes marquee {
+        0% { transform: translate3d(0, 0, 0); }
+        100% { transform: translate3d(-50%, 0, 0); }
+    }
+    
+    /* --- CABEÇALHO SOFISTICADO --- */
+    header { 
+        text-align: center; 
+        padding: 70px 20px 40px 20px; 
+        background-color: #ffffff;
+        position: relative;
+    }
+    
+    header .logo-loja { 
+        max-width: 220px; 
+        height: auto; 
+        display: inline-block; 
+        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        mix-blend-mode: multiply; 
+        filter: drop-shadow(0 12px 25px rgba(0, 0, 0, 0.08));
+        cursor: pointer;
+    }
+
+    header .logo-loja:hover {
+        transform: scale(1.03) translateY(-3px);
+        filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.15));
+    }
+
+    header::after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #000000, transparent);
+        margin: 35px auto 0 auto;
+        opacity: 0.25;
+    }
+    
+    header h1 { font-family: 'Cormorant Garamond', serif; font-size: 54px; font-weight: 400; color: var(--primary-color); margin-bottom: 15px; letter-spacing: 0.1em; text-transform: uppercase; }
+    header p { font-size: 13px; color: var(--text-muted); max-width: 500px; margin: 0 auto; font-weight: 300; letter-spacing: 0.05em; line-height: 1.8; }
+    
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 40px 60px 40px; }
+    
+    .controls-wrapper { background-color: #ffffff; padding: 0 0 30px 0; margin-bottom: 40px; border-bottom: 1px solid var(--border-color); }
+    .search-filter-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between; margin-bottom: 25px; }
+    
+    .search-box { position: relative; flex: 1; max-width: 400px; min-width: 280px; }
+    .search-box input { width: 100%; padding: 12px 16px 12px 40px; border: 1px solid var(--border-color); border-radius: 0px; font-family: 'Inter', sans-serif; font-size: 13px; outline: none; transition: var(--transition); background-color: #ffffff; color: #000000; letter-spacing: 0.03em; }
+    .search-box input:focus { border-color: var(--primary-color); }
+    .search-box svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); width: 15px; height: 15px; stroke-width: 1.5; }
+    
+    .status-filters { display: flex; gap: 0px; border: 1px solid var(--border-color); }
+    .status-btn { background: #ffffff; border: none; padding: 12px 24px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; color: var(--text-muted); transition: var(--transition); letter-spacing: 0.08em; text-transform: uppercase; }
+    .status-btn:not(:last-child) { border-right: 1px solid var(--border-color); }
+    .status-btn.active, .status-btn:hover { background-color: var(--primary-color); color: #ffffff; }
+    
+    .categories-tabs { 
+        display: flex; 
+        gap: 10px; 
+        padding-top: 5px; 
+        overflow-x: auto; 
+        white-space: nowrap; 
+        scrollbar-width: none; 
+        -ms-overflow-style: none; 
+        padding-bottom: 5px;
+    }
+    .categories-tabs::-webkit-scrollbar { display: none; } 
+    
+    .category-tab { 
+        background-color: #ffffff; 
+        border: 1px solid var(--border-color); 
+        padding: 8px 20px; 
+        font-family: 'Inter', sans-serif; 
+        font-size: 11px; 
+        font-weight: 400; 
+        color: var(--text-muted); 
+        cursor: pointer; 
+        transition: var(--transition); 
+        text-transform: uppercase; 
+        letter-spacing: 0.08em; 
+        flex-shrink: 0; 
+    }
+    .category-tab.active, .category-tab:hover { background-color: var(--primary-color); color: #ffffff; border-color: var(--primary-color); }
+    
+    .sizes-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px dashed var(--border-color);
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .sizes-container::-webkit-scrollbar { display: none; }
+
+    .size-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--primary-color);
+        margin-right: 5px;
+        flex-shrink: 0;
+    }
+
+    .sizes-tabs {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .size-tab { 
+        background-color: #ffffff; 
+        border: 1px solid var(--border-color); 
+        padding: 6px 14px; 
+        font-family: 'Inter', sans-serif; 
+        font-size: 11px; 
+        font-weight: 400; 
+        color: var(--text-muted); 
+        cursor: pointer; 
+        transition: var(--transition); 
+        text-transform: uppercase; 
+        letter-spacing: 0.05em; 
+        flex-shrink: 0; 
+    }
+    .size-tab.active, .size-tab:hover { 
+        background-color: var(--primary-color); 
+        color: #ffffff; 
+        border-color: var(--primary-color); 
+    }
+
+    .results-info-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+    .results-counter { font-size: 12px; color: var(--text-muted); font-weight: 300; letter-spacing: 0.03em; }
+    
+    .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 30px; }
+    
+    .product-card { background-color: var(--card-bg); overflow: hidden; transition: var(--transition); display: flex; flex-direction: column; position: relative; }
+    
+    .product-image-container { position: relative; width: 100%; padding-top: 140%; background-color: #fafafa; overflow: hidden; }
+    .product-image-container img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: var(--transition); filter: grayscale(15%); cursor: zoom-in; }
+    .product-card:hover .product-image-container img { transform: scale(1.02); filter: grayscale(0%); }
+    
+    /* --- ETIQUETAS E BADGES --- */
+    .badge { position: absolute; padding: 6px 14px; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; z-index: 2; pointer-events: none; }
+    .badge-sale { background-color: #ffffff; color: #000000; top: 15px; left: 15px; border: 1px solid #000000; }
+    .badge-sold { background-color: #000000; color: #ffffff; top: 15px; left: 15px; font-weight: 300; }
+    .badge-discount { background-color: #d93025; color: #ffffff; top: 15px; right: 15px; font-size: 14px; font-weight: 600; padding: 8px 16px; letter-spacing: 0.05em; font-family: 'Inter', sans-serif; box-shadow: 0 4px 12px rgba(217, 48, 37, 0.2); }
+    
+    /* TAG DE DESTAQUE BEM PEQUENA E ELEGANTE */
+    .badge-destaque { 
+        background-color: #000000; 
+        color: #ffffff; 
+        top: 15px; 
+        left: 15px; 
+        font-size: 9px; 
+        font-weight: 600; 
+        padding: 5px 10px; 
+        letter-spacing: 0.08em; 
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    
+    .product-info { padding: 20px 0 0 0; display: flex; flex-direction: column; flex-grow: 1; }
+    .product-category { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 6px; font-weight: 400; }
+    .product-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; color: var(--text-main); margin-bottom: 10px; line-height: 1.2; text-transform: capitalize; }
+    .product-size { font-size: 11px; letter-spacing: 0.04em; color: var(--text-muted); margin-bottom: 18px; font-weight: 300; text-transform: uppercase; }
+    
+    .product-price-box { margin-top: auto; margin-bottom: 20px; display: flex; align-items: baseline; gap: 12px; }
+    
+    /* VALOR ORIGINAL MAIS VISÍVEL E COM COR SÓBRIA DE CORTE */
+    .price-old { 
+        font-size: 15px; 
+        color: #8a1f1a; 
+        text-decoration: line-through; 
+        text-decoration-color: #8a1f1a;
+        text-decoration-thickness: 2px;
+        font-weight: 500; 
+        opacity: 0.85;
+    }
+    
+    /* PREÇO PROMOCIONAL MAIS DESTAQUE (22PX E NEGRITO 600) */
+    .price-current { 
+        font-size: 22px; 
+        font-weight: 600; 
+        color: var(--text-main); 
+        letter-spacing: 0.01em; 
+    }
+    
+    /* --- BOTÕES 3D COM ARREDONDAMENTO MÁXIMO --- */
+    @keyframes shimmer-effect {
+        0% { left: -100%; }
+        100% { left: 200%; }
+    }
+    
+    .btn-whatsapp { 
+        position: relative;
+        display: inline-block; 
+        background-color: #000000; 
+        color: #ffffff; 
+        text-decoration: none; 
+        padding: 14px 22px; 
+        font-size: 11px; 
+        font-weight: 600; 
+        letter-spacing: 0.15em; 
+        text-transform: uppercase; 
+        text-align: center; 
+        transition: all 0.25s ease; 
+        border: none;
+        border-radius: 50px; 
+        overflow: hidden; 
+        z-index: 1;
+        box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.2), inset 0 -2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .btn-whatsapp::after {
+        content: '';
+        position: absolute;
+        top: 0; left: -100%;
+        width: 50%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+        transform: skewX(-25deg);
+        animation: shimmer-effect 4.5s infinite;
+        z-index: 2;
+    }
+
+    .btn-whatsapp:hover { 
+        background-color: #222222;
+        transform: translateY(-1px);
+        box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.3), inset 0 -3px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-whatsapp:active {
+        transform: translateY(1px);
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-btn-whatsapp {
+        position: relative;
+        display: block;
+        width: 100%;
+        background-color: #ffffff;
+        color: #000000;
+        text-decoration: none;
+        padding: 16px 24px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        text-align: center;
+        transition: all 0.25s ease;
+        border: 1px solid #000000;
+        border-radius: 50px; 
+        overflow: hidden; 
+        z-index: 1;
+        box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-btn-whatsapp::after {
+        content: '';
+        position: absolute;
+        top: 0; left: -100%;
+        width: 50%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.12), transparent);
+        transform: skewX(-25deg);
+        animation: shimmer-effect 3.5s infinite;
+        z-index: 2;
+    }
+
+    .modal-btn-whatsapp:hover {
+        background-color: #f7f7f7;
+        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-btn-whatsapp:active {
+        transform: translateY(1px);
+        box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-card.sold-item { opacity: 0.5; }
+    .btn-sold, .modal-btn-whatsapp.btn-sold { 
+        background: #f0f0f0 !important; 
+        color: var(--sold-color) !important; 
+        border-color: var(--sold-color) !important; 
+        cursor: not-allowed; 
+        transform: none !important; 
+        box-shadow: none !important; 
+        border-radius: 50px !important;
+    }
+    .btn-sold::after, .modal-btn-whatsapp.btn-sold::after { display: none !important; }
+    
+    /* --- ROLAGEM INFINITA - INDICADORES DE STATUS --- */
+    .scroll-status {
+        text-align: center;
+        padding: 40px 20px;
+        margin-top: 30px;
+        font-size: 13px;
+        color: var(--text-muted);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border-top: 1px solid var(--border-color);
+        display: none;
+    }
+    
+    /* --- MODAL DE ZOOM --- */
+    .modal-overlay {
+        display: flex;
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.88);
+        backdrop-filter: blur(6px);
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+
+    .modal-overlay.show {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .modal-content {
+        position: relative;
+        max-width: 95vw;
+        max-height: 95vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: scale(0.88);
+        opacity: 0;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+    }
+
+    .modal-overlay.show .modal-content {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    .modal-content img {
+        max-width: 100%;
+        max-height: 70vh; 
+        object-fit: contain;
+        border-radius: 2px;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+        background-color: transparent;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        width: 44px;
+        height: 44px;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #ffffff;
+        font-size: 26px;
+        font-weight: 300;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        transition: var(--transition);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-close:hover {
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    .modal-info-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 15px;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .modal-caption {
+        color: #ffffff;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 24px;
+        letter-spacing: 0.05em;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+
+    .modal-prices {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+
+    /* VALOR ORIGINAL NO MODAL MAIS VISÍVEL E EM VERMELHO SÓBRIO */
+    .modal-price-old {
+        font-size: 16px;
+        color: #ff857a;
+        text-decoration: line-through;
+        text-decoration-color: #ff857a;
+        text-decoration-thickness: 2px;
+        font-weight: 500;
+    }
+
+    /* PREÇO PROMOCIONAL NO MODAL DE ZOOM AINDA MAIS DESTAQUE (26PX E NEGRITO 700) */
+    .modal-price-current {
+        font-size: 26px;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: 0.02em;
+    }
+
+    .no-results { grid-column: 1 / -1; text-align: center; padding: 80px 20px; color: var(--text-muted); font-size: 14px; font-weight: 300; letter-spacing: 0.05em; }
+    .placeholder-svg { background-color: #fcfcfc; display: flex; align-items: center; justify-content: center; }
+    
+    footer { margin-top: 60px; text-align: center; padding: 60px 20px; background-color: #ffffff; border-top: 1px solid var(--border-color); }
+    footer p { font-size: 11px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    footer a { color: var(--text-main); text-decoration: none; font-weight: 500; border-bottom: 1px solid #000000; padding-bottom: 2px; transition: var(--transition); }
+    footer a:hover { color: #666666; border-color: #666666; }
+    
+    @media (max-width: 1100px) {
+        .product-grid { grid-template-columns: repeat(3, 1fr); gap: 30px 20px; }
+        .container { padding: 0 20px 40px 20px; }
+    }
+    @media (max-width: 768px) {
+        .product-grid { grid-template-columns: repeat(2, 1fr); gap: 18px 10px; }
+        
+        /* 1. Compacta o cabeçalho e a logo */
+        header { padding: 12px 15px 5px 15px; }
+        header .logo-loja { max-width: 110px; }
+        header::after { margin: 10px auto 0 auto; width: 40px; }
+        
+        /* 2. Reduz drasticamente a altura e os espaços da área de filtros */
+        .controls-wrapper { padding: 0 0 8px 0; margin-bottom: 10px; }
+        .search-filter-row { flex-direction: column; align-items: stretch; gap: 6px; margin-bottom: 8px; }
+        .search-box { max-width: 100%; }
+        .search-box input { padding: 8px 12px 8px 35px; font-size: 12px; }
+        
+        /* Botões Ver Tudo | Disponíveis | Esgotados mais finos */
+        .status-filters { justify-content: stretch; }
+        .status-btn { flex: 1; text-align: center; padding: 7px 2px; font-size: 10px; }
+        
+        /* Abas de Categorias e Tamanhos mais finas e grudadas */
+        .category-tab { padding: 4px 12px; font-size: 10px; }
+        .sizes-container { margin-top: 6px; padding-top: 6px; gap: 6px; }
+        .size-label { font-size: 10px; }
+        .size-tab { padding: 4px 10px; font-size: 10px; }
+        
+        /* 3. Puxa os produtos para cima */
+        .results-info-row { margin-bottom: 8px; }
+        .results-counter { font-size: 11px; }
+    }
+    
+    @media (max-width: 480px) {
+        .container { padding: 0 12px 40px 12px; }
+        .product-grid { 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 20px 12px; 
+        }
+        .product-title { font-size: 18px; margin-bottom: 6px; }
+        .product-info { padding: 12px 0 0 0; }
+        .product-size { font-size: 10px; margin-bottom: 12px; }
+        
+        /* PREÇO PROMOCIONAL MAIOR NO CELULAR (18PX) */
+        .price-current { font-size: 18px; font-weight: 600; }
+        
+        .price-old { font-size: 13px; }
+        .product-price-box { gap: 6px; margin-bottom: 14px; }
+        .btn-whatsapp { padding: 10px 12px; font-size: 10px; letter-spacing: 0.1em; }
+        
+        .badge { padding: 4px 8px; font-size: 9px; top: 10px; }
+        .badge-sale, .badge-sold { left: 10px; }
+        .badge-discount { 
+            top: 8px; 
+            right: 8px; 
+            left: auto; 
+            font-size: 11px; 
+            padding: 4px 8px; 
+        }
+        .badge-destaque {
+            top: 8px;
+            left: 8px;
+            font-size: 8px;
+            padding: 3px 7px;
+        }
+    }
+    </style>
+</head>
+<body>
+    
+    <div class="marquee-bar">
+        <div class="marquee-content">
+            <span>• CATÁLOGO DE PROMOÇÕES 2026 • APROVEITE OS DESCONTOS EXCLUSIVOS •</span>
+            <span>• CATÁLOGO DE PROMOÇÕES 2026 • APROVEITE OS DESCONTOS EXCLUSIVOS •</span>
+        </div>
+    </div>
+
+    <header>
+        <img src="fotos/logo_unna.jpg" alt="Logo UNNA" class="logo-loja" onerror="substituirPorPlaceholder(this)">
+    </header>
+    
+    <div class="container">
+        <div class="controls-wrapper">
+            <div class="search-filter-row">
+                <div class="search-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="search-input" placeholder="Buscar por peça ou tamanho..." oninput="lidarBusca(this.value)">
+                </div>
+                <div class="status-filters">
+                    <button class="status-btn active" id="status-todos" onclick="filtrarStatus('todos')">Ver Tudo</button>
+                    <button class="status-btn" id="status-disponiveis" onclick="filtrarStatus('disponiveis')">Disponíveis</button>
+                    <button class="status-btn" id="status-vendidos" onclick="filtrarStatus('vendidos')">Esgotados</button>
+                </div>
+            </div>
+            
+            <div class="categories-tabs" id="categories-tabs"></div>
+
+            <div class="sizes-container">
+                <span class="size-label">Tamanho:</span>
+                <div class="sizes-tabs" id="sizes-tabs"></div>
+            </div>
+        </div>
+        
+        <div class="results-info-row">
+            <div class="results-counter" id="results-counter">Carregando catálogo...</div>
+        </div>
+        
+        <div class="product-grid" id="product-grid"></div>
+        
+        <div id="scroll-status" class="scroll-status">Carregando mais peças...</div>
+    </div>
+
+    <!-- Modal de Ampliação da Imagem -->
+    <div id="image-modal" class="modal-overlay" onclick="fecharModal(event)">
+        <div class="modal-content">
+            <span class="modal-close" onclick="fecharModal(event)">&times;</span>
+            <img id="modal-img" src="" alt="Peça ampliada">
+            <div class="modal-info-box">
+                <div id="modal-caption" class="modal-caption"></div>
+                <div id="modal-prices" class="modal-prices"></div>
+                <div id="modal-btn-container" style="width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 UNNA Modas.</p>
+    </footer>
+    <script>
+        const WHATSAPP_NUMERO = "5579999749647"; 
+        const produtos = [
+
+    {
+        "id": 34,
+        "nome": "Blazer 2",
+        "de": "330,00",
+        "por": "99",
+        "desconto": 70,
+        "tamanho": "46",
+        "vendido": false,
+        "imagem": "fotos/blazer_2.jpg"
+    },        
+    {
+        "id": 100,
+        "nome": "Vestido 47",
+        "de": "280",
+        "por": "137",
+        "desconto": 51,
+        "tamanho": "40/42/44/46/48",
+        "vendido": false,
+        "imagem": "fotos/vestido_47.jpg"
+    },        
+    {
+        "id": 99,
+        "nome": "Cropped 4",
+        "de": "190,00",
+        "por": "76",
+        "desconto": 60,
+        "tamanho": "G1",
+        "vendido": false,
+        "imagem": "fotos/cropped_4.jpg"
+    },        
+    {
+        "id": 6,
+        "nome": "Macaquinho 2",
+        "de": "260,00",
+        "por": "99",
+        "desconto": 65,
+        "tamanho": "46/48/50",
+        "vendido": false,
+        "imagem": "fotos/vestido_3.jpg"
+    },        
+    {
+        "id": 98,
+        "nome": "Vestido 46",
+        "de": "330,00",
+        "por": "147",
+        "desconto": 55,
+        "tamanho": "46/48",
+        "vendido": false,
+        "imagem": "fotos/vestido_46.jpg"
+    },                
+    {
+        "id": 62,
+        "nome": "Vestido 29",
+        "de": "160,00",
+        "por": "96",
+        "desconto": 40,
+        "tamanho": "46/48/50",
+        "vendido": false,
+        "imagem": "fotos/vestido_29.jpg"
+    },        
+    {
+        "id": 96,
+        "nome": "Blusa 21",
+        "de": "120,00",
+        "por": "72",
+        "desconto": 40,
+        "tamanho": "52/54",
+        "vendido": false,
+        "imagem": "fotos/blusa_21.jpg"
+    },
+    {
+        "id": 97,
+        "nome": "Vestido 45",
+        "de": "340,00",
+        "por": "119",
+        "desconto": 65,
+        "tamanho": "48",
+        "vendido": false,
+        "imagem": "fotos/vestido_45.jpg"
+    },        
+    {
+        "id": 95,
+        "nome": "Blusa 20",
+        "de": "89,90",
+        "por": "59",
+        "desconto": 34,
+        "tamanho": "Único slim",
+        "vendido": false,
+        "imagem": "fotos/blusa_20.jpg"
+    },
+    {
+        "id": 5,
+        "nome": "Vestido 2",
+        "de": "390,00",
+        "por": "195",
+        "desconto": 50,
+        "tamanho": "50/52",
+        "vendido": false,
+        "imagem": "fotos/vestido_2.jpg"
+    },
+    {
+        "id": 94,
+        "nome": "Conjunto 9",
+        "de": "400,00",
+        "por": "240",
+        "desconto": 40,
+        "tamanho": "46/48/50",
+        "vendido": false,
+        "imagem": "fotos/conjunto_9.jpg"
+    },        
+    {
+        "id": 93,
+        "nome": "Vestido 44",
+        "de": "250,00",
+        "por": "99",
+        "desconto": 60,
+        "tamanho": "G slim",
+        "vendido": false,
+        "imagem": "fotos/vestido_44.jpg"
+    },        
+    {
+        "id": 92,
+        "nome": "Biquíni 1",
+        "de": "180,00",
+        "por": "72",
+        "desconto": 60,
+        "tamanho": "48/50",
+        "vendido": false,
+        "imagem": "fotos/biquini_1.jpg"
+    },        
+    {
+        "id": 91,
+        "nome": "Conjunto 8",
+        "de": "160,00",
+        "por": "128",
+        "desconto": 20,
+        "tamanho": "48/50/52",
+        "vendido": false,
+        "imagem": "fotos/conjunto_8.jpg"
+    },        
+    {
+        "id": 90,
+        "nome": "Blusa 19",
+        "de": "250,00",
+        "por": "99",
+        "desconto": 60,
+        "tamanho": "46",
+        "vendido": false,
+        "imagem": "fotos/blusa_19.jpg"
+    },        
+    {
+        "id": 89,
+        "nome": "Conjunto 7",
+        "de": "230,00",
+        "por": "115",
+        "desconto": 50,
+        "tamanho": "GG slim",
+        "vendido": false,
+        "imagem": "fotos/conjunto_7.jpg"
+    },        
+    {
+        "id": 88,
+        "nome": "Conjunto 6",
+        "de": "250,00",
+        "por": "125",
+        "desconto": 50,
+        "tamanho": "G slim",
+        "vendido": true,
+        "imagem": "fotos/conjunto_6.jpg"
+    },        
+    {
+        "id": 87,
+        "nome": "Vestido 43",
+        "de": "170,00",
+        "por": "85",
+        "desconto": 50,
+        "tamanho": "38/40/42",
+        "vendido": false,
+        "imagem": "fotos/vestido_43.jpg"        
+    },
+    {
+        "id": 86,
+        "nome": "Calça 4",
+        "de": "130,00",
+        "por": "97",
+        "desconto": 25,
+        "tamanho": "GG",
+        "vendido": false,
+        "imagem": "fotos/calca_4.jpg"        
+    },        
+    {
+        "id": 85,
+        "nome": "Vestido 42",
+        "de": "170,00",
+        "por": "85",
+        "desconto": 50,
+        "tamanho": "38/40/42",
+        "vendido": false,
+        "imagem": "fotos/vestido_42.jpg"        
+    },
+    {
+        "id": 83,
+        "nome": "Vestido 40",
+        "de": "260,00",
+        "por": "104",
+        "desconto": 60,
+        "tamanho": "M slim",
+        "vendido": false,
+        "imagem": "fotos/vestido_40.jpg"        
+    },
+    {
+        "id": 84,
+        "nome": "Vestido 41",
+        "de": "250,00",
+        "por": "99",
+        "desconto": 60,
+        "tamanho": "G slim",
+        "vendido": false,
+        "imagem": "fotos/vestido_41.jpg"
+    },        
+    {
+        "id": 82,
+        "nome": "Blusa 18",
+        "de": "199,90",
+        "por": "79",
+        "desconto": 40,
+        "tamanho": "44",
+        "vendido": false,
+        "imagem": "fotos/blusa_18.jpg"
+    },        
+    {
+        "id": 81,
+        "nome": "Blusa 17",
+        "de": "119,90",
+        "por": "60",
+        "desconto": 50,
+        "tamanho": "48",
+        "vendido": true,
+        "imagem": "fotos/blusa_17.jpg"
+    },        
+    {
+        "id": 80,
+        "nome": "Vestido 39",
+        "de": "250,00",
+        "por": "87",
+        "desconto": 65,
+        "tamanho": "48/50",
+        "vendido": false,
+        "imagem": "fotos/vestido_39.jpg"
+    },        
+    {
+        "id": 79,
+        "nome": "Blusa 16",
+        "de": "180,00",
+        "por": "89",
+        "desconto": 50,
+        "tamanho": "48",
+        "vendido": false,
+        "imagem": "fotos/blusa_16.jpg"
+    },        
+    {
+        "id": 78,
+        "nome": "Blusa 15",
+        "de": "140,00",
+        "por": "69",
+        "desconto": 50,
+        "tamanho": "44/46",
+        "vendido": false,
+        "imagem": "fotos/blusa_15.jpg"
+    },
+    {
+        "id": 77,
+        "nome": "Macaquinho 1",
+        "de": "230,00",
+        "por": "149",
+        "desconto": 35,
+        "tamanho": "G1/G2/G3",
+        "vendido": false,
+        "imagem": "fotos/macacuinho_1.jpg"
+    },
+    {
+        "id": 76,
+        "nome": "Vestido 38",
+        "de": "480,00",
+        "por": "216",
+        "desconto": 55,
+        "tamanho": "46/48",
+        "vendido": false,
+        "imagem": "fotos/vestido_38.jpg"
+    },
+    {
+        "id": 73,
+        "nome": "Blusa 14",
+        "de": "250,00",
+        "por": "99",
+        "desconto": 60,
+        "tamanho": "46/48",
+        "vendido": false,
+        "imagem": "fotos/blusa_14.jpg"
+    },
+    {
+        "id": 72,
+        "nome": "Blusa 12",
+        "de": "120,00",
+        "por": "59",
+        "desconto": 50,
+        "tamanho": "G2/G3",
+        "vendido": false,
+        "imagem": "fotos/blusa_12.jpg"
+    },
+    {
+        "id": 71,
+        "nome": "Vestido 36",
+        "de": "350,00",
+        "por": "136",
+        "desconto": 60,
+        "tamanho": "EG/G1",
+        "vendido": false,
+        "imagem": "fotos/vestido_36.jpg"
+    },
+    {
+        "id": 75,
+        "nome": "Vestido 37",
+        "de": "350,00",
+        "por": "157",
+        "desconto": 55,
+        "tamanho": "50",
+        "vendido": false,
+        "imagem": "fotos/vestido_37.jpg"
+    },                  
+    {
+        "id": 61,
+        "nome": "Vestido 28",
+        "de": "290,00",
+        "por": "174",
+        "desconto": 40,
+        "tamanho": "48/50",
+        "vendido": false,
+        "imagem": "fotos/vestido_28.jpg"
+    },
+    {
+        "id": 70,
+        "nome": "Calça 3",
+        "de": "330,00",
+        "por": "148",
+        "desconto": 55,
+        "tamanho": "52",
+        "vendido": false,
+        "imagem": "fotos/calca_3.jpg"
+    },
+    {
+        "id": 67,
+        "nome": "Vestido 33",
+        "de": "330,00",
+        "por": "165",
+        "desconto": 50,
+        "tamanho": "M",
+        "vendido": false,
+        "imagem": "fotos/vestido_33.jpg"
+    },
+    {
+        "id": 68,
+        "nome": "Vestido 34",
+        "de": "320,00",
+        "por": "224",
+        "desconto": 30,
+        "tamanho": "48",
+        "vendido": true,
+        "imagem": "fotos/vestido_34.jpg"
+    },
+    {
+        "id": 69,
+        "nome": "Vestido 35",
+        "de": "300,00",
+        "por": "195",
+        "desconto": 35,
+        "tamanho": "46/48",
+        "vendido": false,
+        "imagem": "fotos/vestido_35.jpg"
+    },    
+    {
+        "id": 63,
+        "nome": "Vestido 30",
+        "de": "400,00",
+        "por": "97",
+        "desconto": 75,
+        "tamanho": "44/46",
+        "vendido": false,
+        "imagem": "fotos/vestido_30.jpg"
+    },
+    {
+        "id": 64,
+        "nome": "Vestido 31",
+        "de": "430,00",
+        "por": "299",
+        "desconto": 30,
+        "tamanho": "50",
+        "vendido": false,
+        "imagem": "fotos/vestido_31.jpg"
+    },
+    {
+        "id": 65,
+        "nome": "Vestido 32",
+        "de": "250,00",
+        "por": "99",
+        "desconto": 60,
+        "tamanho": "48",
+        "vendido": true,
+        "imagem": "fotos/vestido_32.jpg"
+    },
+    {
+        "id": 66,
+        "nome": "Conjunto 4",
+        "de": "400,00",
+        "por": "197",
+        "desconto": 51,
+        "tamanho": "48/50",
+        "vendido": false,
+        "imagem": "fotos/conjunto_4.jpg"
+    },
+    {
+        "id": 52,
+        "nome": "Vestido 26",
+        "de": "420,00",
+        "por": "294",
+        "desconto": 30,
+        "tamanho": "50/52",
+        "vendido": false,
+        "imagem": "fotos/vestido_26.jpg"
+    },
+    {
+        "id": 53,
+        "nome": "Vestido 27",
+        "de": "420,00",
+        "por": "294",
+        "desconto": 30,
+        "tamanho": "50/52",
+        "vendido": false,
+        "imagem": "fotos/vestido_27.jpg"
+    },
+    {
+        "id": 54,
+        "nome": "Macacão 2",
+        "de": "280,00",
+        "por": "139",
+        "desconto": 50,
+        "tamanho": "GG",
+        "vendido": false,
+        "imagem": "fotos/macacao_2.jpg"
+    },
+    {
+        "id": 55,
+        "nome": "Cropped 3",
+        "de": "140,00",
+        "por": "63",
+        "desconto": 55,
+        "tamanho": "46 ao 54",
+        "vendido": false,
+        "imagem": "fotos/cropped_3.jpg"
+    },
+    {
+        "id": 56,
+        "nome": "T-Shirt 1",
+        "de": "150,00",
+        "por": "89",
+        "desconto": 41,
+        "tamanho": "48/50",
+        "vendido": false,
+        "imagem": "fotos/tshirt_1.jpg"
+    },
+    {
+        "id": 57,
+        "nome": "Conjunto 10",
+        "de": "300,00",
+        "por": "180",
+        "desconto": 40,
+        "tamanho": "44",
+        "vendido": false,
+        "imagem": "fotos/blusa_11.jpg"
+    },
+    {
+        "id": 58,
+        "nome": "Calça 2",
+        "de": "160,00",
+        "por": "79",
+        "desconto": 51,
+        "tamanho": "50",
+        "vendido": false,
+        "imagem": "fotos/calca_2.jpg"
+    },
+    {
+        "id": 59,
+        "nome": "Bermuda 1",
+        "de": "140,00",
+        "por": "69",
+        "desconto": 51,
+        "tamanho": "46/48/50",
+        "vendido": false,
+        "imagem": "fotos/bermuda_1.jpg"
+    },
+    {
+        "id": 60,
+        "nome": "T-Shirt 2",
+        "de": "70,00",
+        "por": "49",
+        "desconto": 30,
+        "tamanho": "Consultar TAM e estampas",
+        "vendido": false,
+        "imagem": "fotos/tshirt_2.jpg"
+    },
+    {
+        "id": 1,
+        "nome": "Vestido 1",
+        "de": "380,00",
+        "por": "187",
+        "desconto": 51,
+        "tamanho": "46",
+        "vendido": false,
+        "imagem": "fotos/vestido_1.jpg"
+    },
+    {
+        "id": 2,
+        "nome": "Blusa 1",
+        "de": "230,00",
+        "por": "92",
+        "desconto": 60,
+        "tamanho": "50/52",
+        "vendido": false,
+        "imagem": "fotos/blusa_1.jpg"
+    },
+    {
+        "id": 3,
+        "nome": "Blusa 2",
+        "de": "170,00",
+        "por": "76",
+        "desconto": 55,
+        "tamanho": "50/52",
+        "vendido": false,
+        "imagem": "fotos/blusa_2.jpg"
+    },
+    {
+        "id": 4,
+        "nome": "Blusa 3",
+        "de": "190,00",
+        "por": "95",
+        "desconto": 50,
+        "tamanho": "46/50",
+        "vendido": false,
+        "imagem": "fotos/blusa_3.jpg"
+    },
+    {
+        "id": 7,
+        "nome": "Vestido 4",
+        "de": "190,00",
+        "por": "85",
+        "desconto": 55,
+        "tamanho": "48/50",
+        "vendido": false,
+        "imagem": "fotos/vestido_4.jpg"
+    },
+    {
+        "id": 8,
+        "nome": "Vestido 5",
+        "de": "250,00",
+        "por": "125",
+        "desconto": 50,
+        "tamanho": "46/48",
+        "vendido": false,
+        "imagem": "fotos/vestido_5.jpg"
+    },
+    {
+        "id": 9,
+        "nome": "Blusa 4",
+        "de": "190,00",
+        "por": "95",
+        "desconto": 50,
+        "tamanho": "46",
+        "vendido": true,
+        "imagem": "fotos/blusa_4.jpg"
+    },
+    {
+        "id": 10,
+        "nome": "Vestido 6",
+        "de": "370,00",
+        "por": "144",
+        "desconto": 60,
+        "tamanho": "50/52",
+        "vendido": true,
+        "imagem": "fotos/vestido_6.jpg"
+    },
+    {
+        "id": 11,
+        "nome": "Conjunto 1",
+        "de": "250,00",
+        "por": "125",
+        "desconto": 50,
+        "tamanho": "46/48",
+        "vendido": true,
+        "imagem": "fotos/conjunto_1.jpg"
+    },
+    {
+        "id": 12,
+        "nome": "Blusa 5",
+        "de": "190,00",
+        "por": "95",
+        "desconto": 50,
+        "tamanho": "46",
+        "vendido": false,
+        "imagem": "fotos/blusa_5.jpg"
+    },
+    {
+        "id": 13,
+        "nome": "Vestido 7",
+        "de": "370,00",
+        "por": "148",
+        "desconto": 60,
+        "tamanho": "48/50/52",
+        "vendido": false,
+        "imagem": "fotos/vestido_7.jpg"
+    },
+    {
+        "id": 14,
+        "nome": "Vestido 8",
+        "de": "330,00",
+        "por": "165",
+        "desconto": 50,
+        "tamanho": "48/50",
+        "vendido": false,
+        "imagem": "fotos/vestido_8.jpg"
+    },
+    {
+        "id": 15,
+        "nome": "Macacão 1",
+        "de": "480,00",
+        "por": "192",
+        "desconto": 60,
+        "tamanho": "52/54",
+        "vendido": false,
+        "imagem": "fotos/macacao_1.jpg"
+    },
+    {
+        "id": 16,
+        "nome": "Vestido 9",
+        "de": "390,00",
+        "por": "175",
+        "desconto": 55,
+        "tamanho": "46/48/50",
+        "vendido": false,
+        "imagem": "fotos/vestido_9.jpg"
+    },
+    {
+        "id": 17,
+        "nome": "Vestido 10",
+        "de": "500,00",
+        "por": "225",
+        "desconto": 55,
+        "tamanho": "46/48/50",
+        "vendido": false,
+        "imagem": "fotos/vestido_10.jpg"
+    },
+    {
+        "id": 18,
+        "nome": "Vestido 11",
+        "de": "500,00",
+        "por": "225",
+        "desconto": 55,
+        "tamanho": "48/50",
+        "vendido": false,
+        "imagem": "fotos/vestido_11.jpg"
+    },
+    {
+        "id": 19,
+        "nome": "Vestido 12",
+        "de": "350,00",
+        "por": "175",
+        "desconto": 50,
+        "tamanho": "50",
+        "vendido": true,
+        "imagem": "fotos/vestido_12.jpg"
+    },
+    {
+        "id": 20,
+        "nome": "Vestido 13",
+        "de": "380,00",
+        "por": "187",
+        "desconto": 51,
+        "tamanho": "48",
+        "vendido": false,
+        "imagem": "fotos/vestido_13.jpg"
+    },
+    {
+        "id": 21,
+        "nome": "Vestido 14",
+        "de": "350,00",
+        "por": "175",
+        "desconto": 50,
+        "tamanho": "48/50",
+        "vendido": true,
+        "imagem": "fotos/vestido_14.jpg"
+    },
+    {
+        "id": 22,
+        "nome": "Blusa 6",
+        "de": "250,00",
+        "por": "125",
+        "desconto": 50,
+        "tamanho": "48/50",
+        "vendido": true,
+        "imagem": "fotos/blusa_6.jpg"
+    },
+    {
+        "id": 23,
+        "nome": "Conjunto 2",
+        "de": "390,00",
+        "por": "187",
+        "desconto": 50,
+        "tamanho": "46",
+        "vendido": false,
+        "imagem": "fotos/conjunto_2.jpg"
+    },
+    {
+        "id": 25,
+        "nome": "Vestido 15",
+        "de": "360,00",
+        "por": "144",
+        "desconto": 60,
+        "tamanho": "44",
+        "vendido": true,
+        "imagem": "fotos/vestido_15.jpg"
+    },
+    {
+        "id": 26,
+        "nome": "Blusa 7",
+        "de": "320,00",
+        "por": "128",
+        "desconto": 60,
+        "tamanho": "46",
+        "vendido": false,
+        "imagem": "fotos/blusa_7.jpg"
+    },
+    {
+        "id": 27,
+        "nome": "Vestido 16",
+        "de": "300,00",
+        "por": "147",
+        "desconto": 51,
+        "tamanho": "48/50/52",
+        "vendido": false,
+        "imagem": "fotos/vestido_16.jpg"
+    },
+    {
+        "id": 28,
+        "nome": "Vestido 17",
+        "de": "390,00",
+        "por": "195",
+        "desconto": 50,
+        "tamanho": "50",
+        "vendido": false,
+        "imagem": "fotos/vestido_17.jpg"
+    },
+    {
+        "id": 29,
+        "nome": "Vestido 18",
+        "de": "330,00",
+        "por": "165",
+        "desconto": 50,
+        "tamanho": "46",
+        "vendido": false,
+        "imagem": "fotos/vestido_18.jpg"
+    },
+    {
+        "id": 30,
+        "nome": "Blazer 1",
+        "de": "350,00",
+        "por": "175",
+        "desconto": 50,
+        "tamanho": "46",
+        "vendido": false,
+        "imagem": "fotos/blazer_1.jpg"
+    },
+    {
+        "id": 31,
+        "nome": "Blusa 8",
+        "de": "119,00",
+        "por": "60",
+        "desconto": 50,
+        "tamanho": "48",
+        "vendido": true,
+        "imagem": "fotos/blusa_8.jpg"
+    },
+    {
+        "id": 32,
+        "nome": "Conjunto 5",
+        "de": "650,00",
+        "por": "325",
+        "desconto": 50,
+        "tamanho": "44",
+        "vendido": false,
+        "imagem": "fotos/conjunto_5.jpg"
+    },
+    {
+        "id": 33,
+        "nome": "Colete 1",
+        "de": "200,00",
+        "por": "99",
+        "desconto": 50,
+        "tamanho": "50/52",
+        "vendido": true,
+        "imagem": "fotos/colete_1.jpg"
+    },
+    {
+        "id": 35,
+        "nome": "Vestido 20",
+        "de": "470,00",
+        "por": "188",
+        "desconto": 60,
+        "tamanho": "46",
+        "vendido": true,
+        "imagem": "fotos/vestido_20.jpg"
+    },
+    {
+        "id": 36,
+        "nome": "Vestido 21",
+        "de": "180,00",
+        "por": "90",
+        "desconto": 50,
+        "tamanho": "48/50",
+        "vendido": true,
+        "imagem": "fotos/vestido_21.jpg"
+    },
+    {
+        "id": 37,
+        "nome": "Blusa 9",
+        "de": "140,00",
+        "por": "42",
+        "desconto": 70,
+        "tamanho": "48/50",
+        "vendido": false,
+        "imagem": "fotos/blusa_9.jpg"
+    },
+    {
+        "id": 38,
+        "nome": "Conjunto 3",
+        "de": "190,00",
+        "por": "95",
+        "desconto": 50,
+        "tamanho": "46",
+        "vendido": true,
+        "imagem": "fotos/conjunto_3.jpg"
+    },
+    {
+        "id": 39,
+        "nome": "Calça 1",
+        "de": "200,00",
+        "por": "97",
+        "desconto": 52,
+        "tamanho": "44/46",
+        "vendido": false,
+        "imagem": "fotos/calca_1.jpg"
+    },
+    {
+        "id": 40,
+        "nome": "Body 1",
+        "de": "99,90",
+        "por": "50",
+        "desconto": 50,
+        "tamanho": "GG",
+        "vendido": false,
+        "imagem": "fotos/body_1.jpg"
+    },
+    {
+        "id": 41,
+        "nome": "Short 1",
+        "de": "199,00",
+        "por": "58",
+        "desconto": 70,
+        "tamanho": "48/50",
+        "vendido": false,
+        "imagem": "fotos/short_1.jpg"
+    },
+    {
+        "id": 42,
+        "nome": "Short Renda",
+        "de": "190,00",
+        "por": "76",
+        "desconto": 60,
+        "tamanho": "46/48/50",
+        "vendido": false,
+        "imagem": "fotos/short_renda.jpg"
+    },
+    {
+        "id": 43,
+        "nome": "Colete 2",
+        "de": "180,00",
+        "por": "87",
+        "desconto": 52,
+        "tamanho": "48/50",
+        "vendido": false,
+        "imagem": "fotos/colete_2.jpg"
+    },
+    {
+        "id": 44,
+        "nome": "Cropped 1",
+        "de": "180,00",
+        "por": "54",
+        "desconto": 70,
+        "tamanho": "50/52",
+        "vendido": false,
+        "imagem": "fotos/cropped_1.jpg"
+    },
+    {
+        "id": 45,
+        "nome": "Cropped 2",
+        "de": "180,00",
+        "por": "54",
+        "desconto": 70,
+        "tamanho": "46/48",
+        "vendido": false,
+        "imagem": "fotos/cropped_2.jpg"
+    },
+    {
+        "id": 46,
+        "nome": "Vestido 22",
+        "de": "390,00",
+        "por": "136",
+        "desconto": 65,
+        "tamanho": "G1 e G2",
+        "vendido": false,
+        "imagem": "fotos/vestido_22.jpg"
+    },
+    {
+        "id": 47,
+        "nome": "Short Saia 1",
+        "de": "170,00",
+        "por": "59",
+        "desconto": 65,
+        "tamanho": "48/50",
+        "vendido": false,
+        "imagem": "fotos/short_saia_1.jpg"
+    },
+    {
+        "id": 48,
+        "nome": "Short 3",
+        "de": "260,00",
+        "por": "97",
+        "desconto": 63,
+        "tamanho": "48",
+        "vendido": false,
+        "imagem": "fotos/short_3.jpg"
+    },
+    {
+        "id": 49,
+        "nome": "Vestido 23",
+        "de": "540,00",
+        "por": "337",
+        "desconto": 38,
+        "tamanho": "48",
+        "vendido": false,
+        "imagem": "fotos/vestido_23.jpg"
+    },
+    {
+        "id": 50,
+        "nome": "Vestido 24",
+        "de": "340,00",
+        "por": "199",
+        "desconto": 41,
+        "tamanho": "46/48/50",
+        "vendido": false,
+        "imagem": "fotos/vestido_24.jpg"
+    },
+
+];
+        
+        // --- PARÂMETROS PARA A ROLAGEM INFINITA ---
+        const ITENS_POR_CARREGAMENTO = 24; 
+        let indiceExibicaoAtual = 0;
+        let carregandoMais = false;
+        
+        let categoriaAtual = 'Todos';
+        let tamanhoAtual = 'Todos';
+        let termoPesquisa = '';
+        let statusFiltro = 'todos';
+        let produtosFiltradosGlobais = [];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            gerarAbasCategorias();
+            gerarAbasTamanhos();
+            atualizarFiltrosERenderizar();
+            configurarObservadorRolagem();
+        });
+
+        function obterCategoriasUnicas() {
+            const listasCategorias = ['Todos'];
+            produtos.forEach(p => {
+                let cat = p.nome.split(' ')[0].trim();
+                cat = cat.charAt(0).toUpperCase() + cat.slice(1).toLowerCase();
+                if (!listasCategorias.includes(cat) && cat.length > 0) {
+                    listasCategorias.push(cat);
+                }
+            });
+            return listasCategorias;
+        }
+
+        function gerarAbasCategorias() {
+            const containerAbas = document.getElementById('categories-tabs');
+            const categorias = obterCategoriasUnicas();
+            containerAbas.innerHTML = '';
+            categorias.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = `category-tab ${cat === 'Todos' ? 'active' : ''}`;
+                btn.textContent = cat;
+                btn.setAttribute('data-category', cat);
+                btn.onclick = () => filtrarCategoria(cat);
+                containerAbas.appendChild(btn);
+            });
+        }
+
+        function gerarAbasTamanhos() {
+            const containerTamanhos = document.getElementById('sizes-tabs');
+            const tamanhosPadrao = ['Todos', 'M SLIM', 'G SLIM', 'GG SLIM', '38', '40', '42', '44', '46', '48', '50', '52', '54', 'GG', 'EG', 'G1', 'G2', 'G3'];
+            
+            containerTamanhos.innerHTML = '';
+            tamanhosPadrao.forEach(tam => {
+                const btn = document.createElement('button');
+                btn.className = `size-tab ${tam === 'Todos' ? 'active' : ''}`;
+                btn.textContent = tam;
+                btn.setAttribute('data-size', tam);
+                btn.onclick = () => filtrarTamanho(tam);
+                containerTamanhos.appendChild(btn);
+            });
+        }
+
+        function filtrarTamanho(tamanho) {
+            tamanhoAtual = tamanho;
+            document.querySelectorAll('.size-tab').forEach(btn => {
+                if (btn.getAttribute('data-size') === tamanho) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+            atualizarFiltrosERenderizar();
+        }
+
+        function verificaTamanhoCompativel(tamanhoProduto, tamanhoBuscado) {
+            if (tamanhoBuscado === 'Todos') return true;
+            const tamProdUpper = tamanhoProduto.toUpperCase();
+            const tamBuscaUpper = tamanhoBuscado.toUpperCase();
+            
+            if (tamProdUpper.includes(tamBuscaUpper)) return true;
+            
+            if (tamProdUpper.includes(' AO ') || tamProdUpper.includes(' A ')) {
+                const numeros = tamProdUpper.match(/\d+/g);
+                if (numeros && numeros.length >= 2) {
+                    const min = parseInt(numeros[0]);
+                    const max = parseInt(numeros[1]);
+                    const numBuscado = parseInt(tamBuscaUpper);
+                    if (!isNaN(numBuscado) && numBuscado >= min && numBuscado <= max) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        function filtrarCategoria(categoria) {
+            categoriaAtual = categoria;
+            document.querySelectorAll('.category-tab').forEach(btn => {
+                if (btn.getAttribute('data-category') === categoria) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+            atualizarFiltrosERenderizar();
+        }
+
+        function lidarBusca(valor) {
+            termoPesquisa = valor;
+            atualizarFiltrosERenderizar();
+        }
+
+        function filtrarStatus(status) {
+            statusFiltro = status;
+            document.querySelectorAll('.status-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`status-${status}`).classList.add('active');
+            atualizarFiltrosERenderizar();
+        }
+
+         function atualizarFiltrosERenderizar() {    
+            produtosFiltradosGlobais = produtos.filter(p => {
+                const catItem = p.nome.split(' ')[0].charAt(0).toUpperCase() + p.nome.split(' ')[0].slice(1).toLowerCase();
+                
+                const matchesCategoria = (categoriaAtual === 'Todos' || catItem === categoriaAtual);
+                const matchesTamanho = verificaTamanhoCompativel(p.tamanho, tamanhoAtual);
+                const matchesPesquisa = p.nome.toLowerCase().includes(termoPesquisa.toLowerCase()) || p.tamanho.toLowerCase().includes(termoPesquisa.toLowerCase());
+                const matchesStatus = (statusFiltro === 'todos') || (statusFiltro === 'disponiveis' && !p.vendido) || (statusFiltro === 'vendidos' && p.vendido);
+
+                return matchesCategoria && matchesTamanho && matchesPesquisa && matchesStatus;
+            });
+            
+// --- 1. EMBARALHAR ALEATORIAMENTE TODAS AS PEÇAS ---
+            produtosFiltradosGlobais.sort(() => Math.random() - 0.5);
+            
+            // --- 2. ORGANIZAR POR HIERARQUIA: DESTAQUES NO TOPO, ESGOTADOS NO FINAL ---
+            produtosFiltradosGlobais.sort((a, b) => {
+                // Se um está vendido e o outro não, o vendido vai para o final
+                if (a.vendido !== b.vendido) {
+                    return a.vendido ? 1 : -1;
+                }
+                // Entre os disponíveis, quem tem a tag "destaque: true" fica no topo
+                const destaqueA = a.destaque ? 1 : 0;
+                const destaqueB = b.destaque ? 1 : 0;
+                return destaqueB - destaqueA;
+            });
+            
+            indiceExibicaoAtual = 0;
+            document.getElementById('product-grid').innerHTML = '';
+            
+            const totalProdutos = produtosFiltradosGlobais.length;
+            document.getElementById('results-counter').textContent = `Mostrando ${totalProdutos} item(ns) encontrado(s)`;
+            
+            if (totalProdutos === 0) {
+                document.getElementById('product-grid').innerHTML = `<div class="no-results">Nenhuma peça encontrada nos critérios selecionados.</div>`;
+                document.getElementById('scroll-status').style.display = 'none';
+                return;
+            }
+            
+            carregarMaisProdutos();
+        }
+
+        // --- SISTEMA INTELIGENTE DE ROLAGEM INFINITA ---
+        function carregarMaisProdutos() {
+            if (carregandoMais || indiceExibicaoAtual >= produtosFiltradosGlobais.length) return;
+            
+            carregandoMais = true;
+            const statusDiv = document.getElementById('scroll-status');
+            const grid = document.getElementById('product-grid');
+            
+            const proximoLote = produtosFiltradosGlobais.slice(indiceExibicaoAtual, indiceExibicaoAtual + ITENS_POR_CARREGAMENTO);
+            
+            proximoLote.forEach(p => {
+                const card = document.createElement('div');
+                card.className = `product-card ${p.vendido ? 'sold-item' : ''}`;
+                
+                const mensagemWhats = encodeURIComponent(`Olá, UNNA! Amei o "${p.nome}" (Tamanho: ${p.tamanho}). Gostaria de verificar a disponibilidade para compra!`);
+                const linkWhats = `https://wa.me/${WHATSAPP_NUMERO}?text=${mensagemWhats}`;
+
+                // Adiciona a etiqueta de destaque e ajusta a posição da etiqueta ESGOTADO caso ambas existam
+                card.innerHTML = `
+                    <div class="product-image-container">
+                        ${p.destaque ? '<span class="badge badge-destaque">⭐ DESTAQUE</span>' : ''}
+                        ${p.vendido ? `<span class="badge badge-sold" style="${p.destaque ? 'top: 42px;' : ''}">ESGOTADO</span>` : ''}
+                        ${p.desconto > 0 && !p.vendido ? `<span class="badge badge-discount">-${p.desconto}%</span>` : ''}
+                        <img src="${p.imagem}" alt="${p.nome}" onclick="abrirModal(${p.id})" onerror="substituirPorPlaceholder(this)">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">${p.nome.split(' ')[0]}</span>
+                        <h3 class="product-title">${p.nome}</h3>
+                        <div class="product-size">Tamanho: ${p.tamanho}</div>
+                        <div class="product-price-box">
+                            ${p.de !== '—' ? `<span class="price-old">R$ ${p.de}</span>` : ''}
+                            <span class="price-current">R$ ${p.por}</span>
+                        </div>
+                        ${p.vendido ? 
+                            '<button class="btn-whatsapp btn-sold" disabled>Indisponível</button>' : 
+                            `<a href="${linkWhats}" target="_blank" class="btn-whatsapp">Comprar</a>`
+                        }
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            
+            indiceExibicaoAtual += proximoLote.length;
+            
+            if (indiceExibicaoAtual >= produtosFiltradosGlobais.length) {
+                statusDiv.textContent = '• VOCÊ CHEGOU AO FIM DO CATÁLOGO •';
+                statusDiv.style.display = 'block';
+            } else {
+                statusDiv.textContent = 'Carregando mais peças...';
+                statusDiv.style.display = 'block';
+            }
+            
+            carregandoMais = false;
+        }
+
+        function configurarObservadorRolagem() {
+            window.addEventListener('scroll', () => {
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 400) {
+                    carregarMaisProdutos();
+                }
+            });
+        }
+
+        function substituirPorPlaceholder(imgElement) {
+            imgElement.onerror = null; 
+            imgElement.parentElement.classList.add('placeholder-svg');
+            imgElement.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='none' stroke='%23d9d9d9' stroke-width='1' stroke-linecap='round' stroke-linejoin='round' style='margin:auto;'><rect x='3' y='3' width='18' height='18' rx='2' ry='2'/><circle cx='8.5' cy='8.5' r='1.5'/><polyline points='21 15 16 10 5 21'/></svg>";
+        }
+
+        function abrirModal(idProduto) {
+            const produto = produtos.find(p => p.id === idProduto);
+            if (!produto) return;
+
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-img');
+            const modalCaption = document.getElementById('modal-caption');
+            const modalPrices = document.getElementById('modal-prices');
+            const modalBtnContainer = document.getElementById('modal-btn-container');
+            
+            modalImg.src = produto.imagem;
+            modalCaption.textContent = `${produto.nome} (Tam: ${produto.tamanho})`;
+            
+            modalPrices.innerHTML = `
+                ${produto.de !== '—' ? `<span class="modal-price-old">R$ ${produto.de}</span>` : ''}
+                <span class="modal-price-current">R$ ${produto.por}</span>
+            `;
+
+            const mensagemWhats = encodeURIComponent(`Olá, UNNA! Amei o "${produto.nome}" (Tamanho: ${produto.tamanho}). Gostaria de verificar a disponibilidade para compra!`);
+            const linkWhats = `https://wa.me/${WHATSAPP_NUMERO}?text=${mensagemWhats}`;
+
+            if (produto.vendido) {
+                modalBtnContainer.innerHTML = `<button class="modal-btn-whatsapp btn-sold" disabled>Indisponível</button>`;
+            } else {
+                modalBtnContainer.innerHTML = `<a href="${linkWhats}" target="_blank" class="modal-btn-whatsapp">COMPRAR AGORA NO WHATSAPP</a>`;
+            }
+            
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function fecharModal(event) {
+            if (!event || event.target.id === 'image-modal' || event.target.classList.contains('modal-close')) {
+                const modal = document.getElementById('image-modal');
+                modal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                fecharModal();
+            }
+        });
+    </script>
+</body>
+</html>
