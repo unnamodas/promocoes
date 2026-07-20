@@ -1770,7 +1770,7 @@
                         </div>
                         ${p.vendido ? 
                             '<button class="btn-whatsapp btn-sold" disabled>Indisponível</button>' : 
-                            `<a href="${linkWhats}" target="_blank" class="btn-whatsapp">Comprar</a>`
+                            `<a href="${linkWhats}" target="_blank" class="btn-whatsapp" onclick="fbq('track', 'Contact');">Comprar</a>`
                         }
                     </div>
                 `;
@@ -1825,10 +1825,10 @@
             const mensagemWhats = encodeURIComponent(`Olá, UNNA! Amei o "${produto.nome}" (Tamanho: ${produto.tamanho}). Gostaria de verificar a disponibilidade para compra!`);
             const linkWhats = `https://wa.me/${WHATSAPP_NUMERO}?text=${mensagemWhats}`;
 
-            if (produto.vendido) {
+           if (produto.vendido) {
                 modalBtnContainer.innerHTML = `<button class="modal-btn-whatsapp btn-sold" disabled>Indisponível</button>`;
             } else {
-                modalBtnContainer.innerHTML = `<a href="${linkWhats}" target="_blank" class="modal-btn-whatsapp">COMPRAR AGORA NO WHATSAPP</a>`;
+                modalBtnContainer.innerHTML = `<a href="${linkWhats}" target="_blank" class="modal-btn-whatsapp" onclick="fbq('track', 'Contact');">COMPRAR AGORA NO WHATSAPP</a>`;
             }
             
             modal.classList.add('show');
